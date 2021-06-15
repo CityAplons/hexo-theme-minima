@@ -1,39 +1,52 @@
+<div style="max-width: 50px; position: absolute; top: 0; right: 30px;">
+  <h2 class="mode">
+    <div onclick=setDarkMode(true) id="darkBtn"><%= theme.switch_dark %></div>
+    <div onclick=setDarkMode(false) id="lightBtn" class=hidden><%= theme.switch_light %></div>
+    <script >
+      if (localStorage.getItem('preferredTheme') == 'dark') {
+        setDarkMode(true)
+      }
+      function setDarkMode(isDark) {
+        var darkBtn = document.getElementById('darkBtn')
+        var lightBtn = document.getElementById('lightBtn')
+        if (isDark) {
+          lightBtn.style.display = "block"
+          darkBtn.style.display = "none"
+          localStorage.setItem('preferredTheme', 'dark');
+        } else {
+          lightBtn.style.display = "none"
+          darkBtn.style.display = "block"
+          localStorage.removeItem('preferredTheme');
+        }
+        document.body.classList.toggle("darkmode");
+      }
+    </script>
+  </h2>
+</div>
+
 <div class="row">
-  <div class="two columns" style="max-width: 50px">
-    <h1 class="mt-2 mode">
-      <div onclick=setDarkMode(true) id="darkBtn"><%= theme.switch_dark %></div>
-      <div onclick=setDarkMode(false) id="lightBtn" class=hidden><%= theme.switch_light %></div>
-      <script >
-        if (localStorage.getItem('preferredTheme') == 'dark') {
-          setDarkMode(true)
-        }
-        function setDarkMode(isDark) {
-          var darkBtn = document.getElementById('darkBtn')
-          var lightBtn = document.getElementById('lightBtn')
-          if (isDark) {
-            lightBtn.style.display = "block"
-            darkBtn.style.display = "none"
-            localStorage.setItem('preferredTheme', 'dark');
-          } else {
-            lightBtn.style.display = "none"
-            darkBtn.style.display = "block"
-            localStorage.removeItem('preferredTheme');
-          }
-          document.body.classList.toggle("darkmode");
-        }
-      </script>
-    </h1>
+  <div class="row avatar">
+    <img src="<%-config.url + theme.thumbnail %>" alt="avatar">
   </div>
 
-  <div class="six columns ml-1">
-    <h1 class="mt-2">
+  <div class="twelve columns">
+    <h2>
       <%= theme.title %>
-    </h1>
+    </h2>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <!-- Main information, edit it on theme/_config.yml -->
+      <h2 class="mb-2"><%= theme.owner %></h2>
+      <p><%= theme.info %></p>
+      <p><%= theme.desc %></p>
+    </div>
   </div>
 
   <div class="twelve columns">
     <div class="row">
-      <div class="nine columns left">
+      <div class="twelve columns left">
         <a href="<%= config.root %>">Home</a>
         <% for (name in theme.menu) { %>
           <% if (theme.menu[name]) { %>
@@ -49,6 +62,6 @@
         <% } %>
       </div>
     </div>
-    <hr style="margin-bottom: 2.6rem">
+    <hr style="margin: 1rem 0 1rem 0">
   </div>
 </div>
